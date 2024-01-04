@@ -1,0 +1,22 @@
+services:
+  authservice:
+    volumes:
+      - ../authService:/usr/src/app
+    build:
+      context: ../authService
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:8080
+
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 1149
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+volumes:
+  database:
