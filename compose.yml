@@ -1,17 +1,28 @@
 services:
-  myserver:
+  member-service:
     volumes:
-      - ../authService:/usr/src/app
-    container_name: authservice
+      - /memberService:/usr/src/app
+    container_name: memberservice
     build:
-      context: ../authService
+      context: /memberService
     depends_on:
       - mydb
     ports:
-      - 8080:8080
+      - 8081:8080
     networks:
       - ysg
-
+  auth-service:
+    volumes:
+      - /authService:/usr/src/app
+    container_name: authservice
+    build:
+      context: /authService
+    depends_on:
+      - mydb
+    ports:
+      - 8082:8080
+    networks:
+      - ysg
   mydb:
     image: mariadb
     container_name: mariadb
