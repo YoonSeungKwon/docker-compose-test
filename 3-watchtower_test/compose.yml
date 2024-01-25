@@ -1,0 +1,17 @@
+services:
+  temp-service:
+    image: yoonseungkwon/watchtower_test
+    container_name: workservice
+    ports:
+      - 8080:8080
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - temp-service
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=60
+
+
+
